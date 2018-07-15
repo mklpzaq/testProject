@@ -25,36 +25,36 @@
 	</bean>
 	
 	<!-- commons dbcp : 앞 예제들처럼 properties를 사용하여 값설정을 하여도 됨 -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/jjdev"/>
-        <property name="username" value="root"/>
-        <property name="password" value="0000"/>
-    </bean>
-    
-    <!-- connection가진 tx기능을 spring에게 위임 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-    <tx:annotation-driven />
-    <tx:annotation-driven proxy-target-class="true"/>
-  
-    
-    <!-- mybatis 세션생성을 위한 팩토리 생성 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!-- mybatis 세션생성시 사용할 dataSource주입 -->
-        <property name="dataSource" ref="dataSource" />
-        <!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
-        <property name="mapperLocations">
-            <list>
-                <value>classpath:com/test/my/TestMapper.xml</value>
-            </list>
-        </property>
-    </bean>
-    <!-- mybatis를 사용하여 db에접속하여 쿼리를 보내는 주체인 SqlSessionTemplate빈 생성-->
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory" />
-    </bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/jjdev"/>
+		<property name="username" value="root"/>
+		<property name="password" value="0000"/>
+	</bean>
+	
+	<!-- connection가진 tx기능을 spring에게 위임 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:annotation-driven />
+	<tx:annotation-driven proxy-target-class="true"/>
+
+
+	<!-- mybatis 세션생성을 위한 팩토리 생성 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- mybatis 세션생성시 사용할 dataSource주입 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/test/my/TestMapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- mybatis를 사용하여 db에접속하여 쿼리를 보내는 주체인 SqlSessionTemplate빈 생성-->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
 
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
